@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const url = 'https://uexcorp.space/api/2.0/commodities';
             const headers = {
-                'User-Agent': 'Galactic-Trader-App', // Your user-agent string
+                'User-Agent': 'https://dmshort.github.io/Galactic-Trader/index', // Your user-agent string
                 'Accept': '*/*',
                 'Accept-Encoding': 'gzip, deflate, br',
                 'Connection': 'keep-alive',
