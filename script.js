@@ -7,49 +7,25 @@ document.addEventListener('DOMContentLoaded', () => {
     const footer = document.querySelector('footer');
     const tickerList = document.getElementById('ticker-list');
 
-    // Replace 'YOUR_BEARER_TOKEN' with your actual bearer token
-    const bearerToken = '912b63959ef6a31d2eec131d3e3b90ceb44d3a6a';
+    // Function to fetch commodity data using JSONP
+    function fetchCommoditiesJSONP() {
+        const script = document.createElement('script');
+        script.src = `https://uexcorp.space/api/2.0/commodities?callback=handleJSONPResponse`;
 
-    // Function to fetch commodity data from API with bearer token
-    async function fetchCommodities() {
-    try {
-        const url = 'https://uexcorp.space/api/2.0/commodities';
-        const headers = {
-            'User-Agent': 'Galactic-Trader-App', // Your user-agent string
-            'Accept': '*/*',
-            'Accept-Encoding': 'gzip, deflate, br',
-            'Connection': 'keep-alive',
-            'Authorization': `Bearer ${bearerToken}`
+        // Define the callback function globally
+        window.handleJSONPResponse = function(data) {
+            console.log('JSONP Response:', data);
+            // Process the JSONP data here
+            updateTickerTape(data); // Call update function with JSONP data
+            document.head.removeChild(script); // Clean up: remove script tag
         };
 
-        console.log('Fetching commodities...');
-        const response = await fetch(url, {
-            headers: headers,
-            mode: 'cors' // Ensure 'cors' mode for accessing response body
-        });
-
-        console.log('Response:', response);
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
-        const data = await response.json();
-        console.log('Data:', data);
-
-        return data;
-    } catch (error) {
-        console.error('Error fetching commodities:', error);
-        throw error; // Re-throw the error to handle it further if needed
+        // Add script tag to the document head to initiate JSONP request
+        document.head.appendChild(script);
     }
-}
-
 
     // Function to update ticker tape with commodity data
-    async function updateTickerTape() {
-        const commodities = await fetchCommodities();
-        if (!commodities) return;
-
+    function updateTickerTape(commodities) {
         // Clear existing ticker tape items
         tickerList.innerHTML = '';
 
@@ -61,11 +37,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Initial update of ticker tape on page load
-    updateTickerTape();
+    // Initial fetch of commodities using JSONP
+    fetchCommoditiesJSONP();
 
     // Periodically update ticker tape (every 30 seconds, adjust as needed)
-    setInterval(updateTickerTape, 30000);
+    setInterval(fetchCommoditiesJSONP, 30000);
 
     themeToggle.addEventListener('change', () => {
         body.classList.toggle('dark-mode');
