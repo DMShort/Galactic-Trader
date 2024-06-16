@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const response = await fetch(url, {
                 headers: headers,
-                mode: 'cors', // Use 'cors' instead of 'no-cors' to access response body
+                mode: 'no-cors', // Use 'cors' instead of 'no-cors' to access response body
             });
 
             if (!response.ok) {
