@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galactic Trader</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Galactic Trader</h1>
+        <label class="theme-switch">
+            <input type="checkbox" id="theme-toggle">
+            <span class="slider"></span>
+        </label>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Planner</a></li>
+            <li><a href="#">Locations</a></li>
+            <li><a href="#">Ships</a></li>
+            <li><a href="#">War Room</a></li>
+        </ul>
+    </nav>
+    <div class="ticker-tape">
+        <ul id="ticker-list">
+            <!-- Ticker tape items will be dynamically added here -->
+        </ul>
+    </div>
+    <main>
+        <div class="content">
+            <select id="commodity-dropdown">
+                <option value="" disabled selected>Select a commodity</option>
+                <!-- Options will be populated here dynamically -->
+            </select>
+            <div id="data-display">
+                <!-- Data will be displayed here -->
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Galactic Trader. All rights reserved.</p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
