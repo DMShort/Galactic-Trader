@@ -12,33 +12,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Function to fetch commodity data from API with bearer token
     async function fetchCommodities() {
-        try {
-            const url = 'https://uexcorp.space/api/2.0/commodities';
-            const headers = {
-                'User-Agent': 'https://dmshort.github.io/Galactic-Trader/index', // Your user-agent string
-                'Accept': '*/*',
-                'Accept-Encoding': 'gzip, deflate, br',
-                'Connection': 'keep-alive',
-                'Authorization': `Bearer ${bearerToken}` // Include bearer token in Authorization header
-            };
+    try {
+        const url = 'https://uexcorp.space/api/2.0/commodities';
+        const headers = {
+            'User-Agent': 'Galactic-Trader-App', // Your user-agent string
+            'Accept': '*/*',
+            'Accept-Encoding': 'gzip, deflate, br',
+            'Connection': 'keep-alive',
+            'Authorization': `Bearer ${bearerToken}`
+        };
 
-            const response = await fetch(url, {
-                headers: headers,
-                mode: 'no-cors', // Use 'cors' instead of 'no-cors' to access response body
-            });
+        console.log('Fetching commodities...');
+        const response = await fetch(url, {
+            headers: headers,
+            mode: 'cors' // Ensure 'cors' mode for accessing response body
+        });
 
-            if (!response.ok) {
-                throw new Error('Failed to fetch commodities');
-            }
+        console.log('Response:', response);
 
-            const data = await response.json(); // Parse JSON response
-
-            return data;
-        } catch (error) {
-            console.error('Error fetching commodities:', error);
-            return null;
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
         }
+
+        const data = await response.json();
+        console.log('Data:', data);
+
+        return data;
+    } catch (error) {
+        console.error('Error fetching commodities:', error);
+        throw error; // Re-throw the error to handle it further if needed
     }
+}
+
 
     // Function to update ticker tape with commodity data
     async function updateTickerTape() {
