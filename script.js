@@ -10,10 +10,23 @@ document.addEventListener('DOMContentLoaded', () => {
     // Function to fetch commodity data from API
     async function fetchCommodities() {
         try {
-            const response = await fetch('https://uexcorp.space/api/2.0/commodities');
+            const url = 'https://uexcorp.space/api/2.0/commodities';
+            const headers = {
+                'User-Agent': 'Galactic-Trader-App', // Your user-agent string
+                'Accept': '*/*',
+                'Accept-Encoding': 'gzip, deflate, br',
+                'Connection': 'keep-alive'
+                // Add other headers as needed
+            };
+
+            const response = await fetch(url, {
+                headers: headers
+            });
+
             if (!response.ok) {
                 throw new Error('Failed to fetch commodities');
             }
+
             const data = await response.json();
             return data;
         } catch (error) {
